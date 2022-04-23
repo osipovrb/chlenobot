@@ -44,7 +44,7 @@ class DickCommand extends UserCommand
             }
         
             $delta_plus = random_int(1, 10) > 2;
-            $delta_dicklen = $delta_plus ? random_int(1, 10) : random_int(-10, 1);
+            $delta_dicklen = $delta_plus ? random_int(1, 10) : random_int(-10, -1);
 
             $new_dicklen = $dicklen + $delta_dicklen;
             $new_dicklen_msg = $delta_plus
