@@ -28,9 +28,7 @@ class DickCommand extends UserCommand
         $stmt->execute(compact('userid', 'chatid'));
         if ($stmt->fetchColumn()) { // сегодня уже играл
             Carbon::setLocale('ru');
-            $now = Carbon::now();
-            $endOfDay = $now->copy()->endOfDay();
-            $comeAfter = $now->diffForHumans($endOfDay, true);
+            $comeAfter = Carbon::now()->endOfDay()->longRelativeToNowDiffForHumans($parts = 2);
             return $this->replyToChat('@'.$username.', ты уже играл сегодня. Приходи через ' . $comeAfter);
         } else {
             $stmt = $pdo->prepare('SELECT dicklen FROM dicks WHERE userid = :userid AND chatid = :chatid LIMIT 1');
