@@ -23,12 +23,19 @@ class MydickCommand extends UserCommand
         $userid = $message->getFrom()->getId();
         $mention = $message->getFrom()->tryMention();
 
-        $stmt = $pdo->prepare('SELECT mention, dicklen FROM dicks WHERE chatid = :chatid AND userid = :userid LIMIT 1');
+        $stmt = $pdo->prepare(' SELECT * 
+                                FROM (
+                                    SELECT userid, mention, dicklen, ROW_NUMBER() OVER(ORDER BY dicklen DESC) as rating 
+                                    FROM dicks 
+                                    WHERE chatid = :chatid
+                                ) t    
+                                WHERE userid = :userid;');
+
         $stmt->execute(compact('chatid', 'userid'));
         $dick = $stmt->fetch();
 
         $message = ($dick) 
-            ?  $mention . ', длина твоего члена: ' . $dick['dicklen'] . ' см.'
+            ?  $mention . ', длина твоего члена: ' . $dick['dicklen'] . ' см. Ты занимаешь ' . $dick['rating'] . ' место в рейтинге.'
             :  $mention . ', не нашел твой писюн. Отправь /dick в чат чтобы вырастить член.';
 
         return $this->replyToChat($message);
