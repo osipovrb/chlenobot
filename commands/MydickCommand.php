@@ -29,7 +29,7 @@ class MydickCommand extends UserCommand
 
         $message = ($dick) 
             ?  $mention . ', длина твоего члена: ' . $dick['dicklen'] . ' см.'
-            :  $mention . ', не нашел твой писюн. Отправь /dick в чат чтобы вырастить себе большой и могучий член.'.$dick;
+            :  $mention . ', не нашел твой писюн. Отправь /dick в чат чтобы вырастить член.';
 
         return $this->replyToChat($message);
     }
