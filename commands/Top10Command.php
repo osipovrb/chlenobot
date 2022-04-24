@@ -25,9 +25,11 @@ class Top10Command extends UserCommand
         $stmt->execute(compact('chatid'));
         $top10 = $stmt->fetchAll();
 
-        $message = 'Топ 10 хуеносцев:'.PHP_EOL.array_reduce($top10, fn($carry, $v) => $carry 
-            . (empty($v['mention']) ? 'Неизвестный шакал' : $v['mention']) . ': ' . $v['dicklen'] . ' см.' . PHP_EOL
-        );
+        $message = $top10
+            ?   'Топ 10 хуеносцев:' . PHP_EOL . array_reduce($top10, fn($carry, $v) => $carry 
+                    . (empty($v['mention']) ? 'Неизвестный шакал' : $v['mention']) . ': ' . $v['dicklen'] . ' см.' . PHP_EOL
+                )
+            :   'В этом чате писюны не найдены. Отправь /dick в чат чтобы вырастить член.';
 
         return $this->replyToChat($message);
     }
