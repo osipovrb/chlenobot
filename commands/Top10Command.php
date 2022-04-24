@@ -7,11 +7,11 @@ use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Entities\User;
 
-class TopCommand extends UserCommand
+class Top10Command extends UserCommand
 {
-    protected $name = 'top';
-    protected $description = 'Рейтинг хуеносцев';
-    protected $usage = '/top';
+    protected $name = 'top10';
+    protected $description = 'Топ 10 хуеносцев';
+    protected $usage = '/top10';
     protected $version = '1.0';
 
     public function execute(): ServerResponse
@@ -21,7 +21,7 @@ class TopCommand extends UserCommand
         $message = $this->getMessage();
 
         $chatid = $message->getChat()->getId();
-        $stmt = $pdo->prepare('SELECT mention, dicklen FROM dicks WHERE chatid = :chatid ORDER BY dicklen DESC');
+        $stmt = $pdo->prepare('SELECT mention, dicklen FROM dicks WHERE chatid = :chatid ORDER BY dicklen DESC LIMIT 10');
         $stmt->execute(compact('chatid'));
         $top10 = $stmt->fetchAll();
 
