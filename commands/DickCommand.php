@@ -53,7 +53,7 @@ class DickCommand extends UserCommand
 
             $new_dicklen_msg = $delta_plus
                 ? 'вырос на ' . $delta_dicklen. ' см.'
-                : 'сократился на ' . $delta_dicklen . ' см.';
+                : 'сократился на ' . abs($delta_dicklen) . ' см.';
 
             $stmt = $pdo->prepare('UPDATE dicks SET dicklen = :new_dicklen, mention = :mention WHERE userid = :userid AND chatid = :chatid');
             $stmt->execute(compact('new_dicklen', 'mention', 'userid', 'chatid'));
