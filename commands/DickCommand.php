@@ -27,10 +27,6 @@ class DickCommand extends UserCommand
         $stmt = $pdo->prepare('SELECT * FROM plays WHERE userid = :userid AND chatid = :chatid AND playdate = CURDATE()');
         $stmt->execute(compact('userid', 'chatid'));
         if ($stmt->fetchColumn()) { // сегодня уже играл
-            // --- ВРЕМЕННОЕ
-            $stmt = $pdo->prepare('UPDATE dicks SET mention = :mention WHERE userid = :userid AND chatid = :chatid');
-            $stmt->execute(compact('mention', 'userid', 'chatid'));
-            // --- END ВРЕМЕННОЕ
             Carbon::setLocale('ru');
             $comeAfter = Carbon::now()->endOfDay()->longRelativeToNowDiffForHumans($parts = 2);
             return $this->replyToChat($mention.', ты уже играл сегодня. Приходи ' . $comeAfter);
