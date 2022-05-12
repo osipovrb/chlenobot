@@ -49,7 +49,7 @@ class DickCommand extends UserCommand
             } while ($new_dicklen < 0); // если после "броска" длина члена ушла в минус, то повторяем "бросок", пока длина не станет положительной
 
             $new_dicklen_msg = $delta_plus
-                ? 'вырос на ' . $delta_dickle
+                ? 'вырос на ' . $delta_dicklen
                 : 'сократился на ' . abs($delta_dicklen);
 
             $stmt = $pdo->prepare('UPDATE dicks SET dicklen = :new_dicklen, mention = :mention WHERE userid = :userid AND chatid = :chatid');
