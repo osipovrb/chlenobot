@@ -9,6 +9,6 @@
         "nesbot/carbon": "^2.57"
     },
     "autoload": {
-        "files": ["dotenv.php", "logger.php"]
+        "files": ["dotenv.php"]
     }
 }
