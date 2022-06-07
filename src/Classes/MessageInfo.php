@@ -15,11 +15,8 @@ class MessageInfo
      */
     public function __construct($message)
     {
-        $this->chat_id = 1;
-        $this->user_id = 1;
-        $this->mention = 'Zopa';
-//        $this->chat_id = $message->getChat()->getId();
-//        $this->user_id = $message->getFrom()->getId();
-//        $this->mention = $message->getFrom()->tryMention();
+        $this->chat_id = $message->getChat()->getId();
+        $this->user_id = $message->getFrom()->getId();
+        $this->mention = $message->getFrom()->tryMention();
     }
 }
