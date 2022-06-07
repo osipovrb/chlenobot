@@ -319,7 +319,8 @@ DROP TABLE IF EXISTS `plays`;
 CREATE TABLE `plays` (
   `userid` varchar(255) NOT NULL,
   `chatid` varchar(255) NOT NULL,
-  `playdate` date DEFAULT NULL
+  `playdate` date DEFAULT NULL,
+  `steal_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

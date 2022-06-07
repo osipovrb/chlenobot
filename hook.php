@@ -1,5 +1,7 @@
 <?php
 
+use App\Database\DB;
+
 require __DIR__ . '/vendor/autoload.php';
 
 try {
@@ -8,6 +10,9 @@ try {
     $telegram->addCommandsPaths([
         __DIR__ . '/commands/',
     ]);
+
+    $db = DB::getInstance();
+    $db->initialize();
     
     //This prevents library from processing repetitive requests
     $telegram->enableLimiter();
