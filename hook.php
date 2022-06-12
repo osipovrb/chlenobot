@@ -8,7 +8,7 @@ try {
     $telegram = new Longman\TelegramBot\Telegram($_ENV['BOT_API_KEY'], $_ENV['BOT_USERNAME']);
     
     $telegram->addCommandsPaths([
-        __DIR__ . '/commands/',
+        __DIR__ . '/src/Commands/',
     ]);
 
     $db = DB::getInstance();
