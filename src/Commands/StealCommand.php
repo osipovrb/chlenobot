@@ -26,7 +26,60 @@ class StealCommand extends AbstractCommand
         ]);
 
         if ($played) {
-            return $this->replyToChat($messageInfo->mention.', ты уже воровал сегодня член!');
+            return $this->replyToChat($messageInfo->mention . ', ты уже воровал сегодня член!');
         }
+
+        $longestDick = $db->medoo->get(
+            'dicks',
+            ['dicklen', 'mention', 'userid'],
+            [
+                'chatid' => $messageInfo->chat_id,
+                'ORDER' => [
+                    'dicklen' => 'DESC'
+                ],
+            ]
+        );
+
+        if ((int)$longestDick['userid'] === $messageInfo->user_id) {
+            return $this->replyToChat('У тебя самый длинный член, ты не можешь воровать!');
+        }
+
+        $myDick = $db->medoo->get(
+            'dicks',
+            'dicklen',
+            [
+                'chatid' => $messageInfo->chat_id,
+                'userid' => $messageInfo->user_id,
+            ]
+        );
+
+        $delta = random_int(1, 5);
+
+        $db->medoo->update('dicks', [
+            'dicklen' => $longestDick['dicklen'] - $delta,
+        ], [
+            'chatid' => $longestDick['chatid'],
+            'userid' => $longestDick['userid'],
+        ]);
+
+        $db->medoo->update('dicks', [
+            'dicklen' => $myDick + $delta,
+        ], [
+            'chatid' => $messageInfo->chat_id,
+            'userid' => $messageInfo->user_id,
+        ]);
+
+        $db->medoo->update('plays', [
+            'steal_date' => Medoo::raw('CURDATE()')
+        ], [
+            'chatid' => $messageInfo->chat_id,
+            'userid' => $messageInfo->user_id,
+        ]);
+
+        $longestMention = $longestDick['mention'];
+
+        return $this->replyToChat(
+            "$messageInfo->mention, ты украл у $longestMention $delta см члена!"
+        );
     }
 }
