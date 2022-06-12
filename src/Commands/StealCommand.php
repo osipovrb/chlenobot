@@ -58,7 +58,7 @@ class StealCommand extends AbstractCommand
         $db->medoo->update('dicks', [
             'dicklen' => $longestDick['dicklen'] - $delta,
         ], [
-            'chatid' => $longestDick['chatid'],
+            'chatid' => $messageInfo->chat_id,
             'userid' => $longestDick['userid'],
         ]);
 
