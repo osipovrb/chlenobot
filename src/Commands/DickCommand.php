@@ -57,7 +57,7 @@ class DickCommand extends UserCommand
 
             $message = $mention . ', твой член ' . $new_dicklen_msg . ' см. Теперь его длина: ' . $new_dicklen . ' см.';
 
-            $stmt = $pdo->prepare('INSERT INTO plays VALUES (:userid, :chatid, CURDATE())');
+            $stmt = $pdo->prepare('INSERT INTO plays VALUES (:userid, :chatid, CURDATE(), NULL)');
             $stmt->execute(compact('userid', 'chatid'));
 
             return $this->replyToChat($message);
