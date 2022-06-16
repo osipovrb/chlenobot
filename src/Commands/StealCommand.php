@@ -19,7 +19,7 @@ class StealCommand extends AbstractCommand
 
         $messageInfo = $this->getMessageInfo();
 
-        $played = $db->medoo->get('plays', 'steal_date', [
+        /*$played = $db->medoo->get('plays', 'steal_date', [
             'userid' => $messageInfo->user_id,
             'chatid' => $messageInfo->chat_id,
             'steal_date' => Medoo::raw('CURDATE()'),
@@ -80,6 +80,10 @@ class StealCommand extends AbstractCommand
 
         return $this->replyToChat(
             "$messageInfo->mention, ты украл у $longestMention $delta см члена!"
+        );*/
+
+        return $this->replyToChat(
+            "Команда не работает, потому что Карась не заплатил алименты!"
         );
     }
 }
